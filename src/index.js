@@ -35,10 +35,7 @@ function infoHandler({name, capital, population, flags, languages}) {
 };
 
 function parseLangArr(arr) {
-    const lang = arr.map(elem => {   
-      Object.values(elem);
-    });
-    console.log(lang.join(',')); 
+    const lang = arr.map(elem => elem.name);
     return lang.join(',');
 };
 
