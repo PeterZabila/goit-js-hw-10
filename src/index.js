@@ -3,6 +3,7 @@ import { fetchCountries } from './fetchCountries';
 import debounce from "lodash.debounce";
 
 export { infoHandler };
+export { refs };
 
 const DEBOUNCE_DELAY = 300;
 
@@ -13,26 +14,32 @@ const refs = {
     info: document.querySelector('.country-info'),
 };
 
+refs.info.classList.add("hidden");
+
 function inputHandler () {
-    const inputValue = refs.input.value;
+    const inputValue = refs.input.value.trim();
     fetchCountries(inputValue);
 }
 
 function infoHandler({name, capital, population, flags, languages}) {
-    // refs.info.classList.remove('is-hidden');
-    refs.info.insertAdjacentHTML('afterbegin', 
-    `<p class="info">Capital: ${capital}</p
-    <p class="info">Population: ${population}</p>
-    <h3 class="country"><img src="${flags}" alt="flag" width="30px">${name}</h3>
-    <p class="info">Languages: ${(Object.values(languages)).toString()}</p>`
-
-    
-    // `<h3 class="country"><img src="${flags.svg}" alt="flag" width="30px">${name.official}</h3>
-    // <p class="info">Capital: ${capital}</p>
-    // <p class="info">Population: ${population}</p>
-    // <p class="info">Languages: ${Object.values(languages)}</p>`
-    )
+    console.log(flags);
+    console.log(languages);
+        refs.info.insertAdjacentHTML('afterbegin', 
+        `<img src="${flags.png}" alt="flag" width="30px"><h3 class="country">${name}</h3>
+        <p class="info">Capital: ${capital}</p
+        <p class="info">Population: ${population}</p>
+        <p class="info">Languages: ${parseLangArr(languages)}</p>`
+        );
+    refs.ul.innerHTML = "";
     console.log(typeof(Object.values(languages)));
-}
+};
+
+function parseLangArr(arr) {
+    const lang = arr.map(elem => {   
+      Object.values(elem);
+    });
+    console.log(lang.join(',')); 
+    return lang.join(',');
+};
 
 refs.input.addEventListener('input', debounce(inputHandler, DEBOUNCE_DELAY));
