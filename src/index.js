@@ -16,7 +16,7 @@ const refs = {
 
 refs.info.classList.add("hidden");
 
-function inputHandler () {
+function inputHandler (e) {
     const inputValue = refs.input.value.trim();
     fetchCountries(inputValue);
 }

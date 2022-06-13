@@ -13,7 +13,9 @@ export { fetchCountries };
 
     fetch(`https://restcountries.com/v2/name/${name}?fields=name,capital,population,flags,languages`)
         .then(response => {
-            return response.json();
+            if(response.ok) {
+                return response.json();
+            }
         })
         .then(object => {
             if(object.length > 10) {
@@ -35,6 +37,7 @@ export { fetchCountries };
             }          
         })
        .catch(error => {
+        refs.info.classList.add("hidden");
            console.log(error);
            Notify.failure(`❌ Please enter existing country `);
            refs.info.innerHTML = "";
